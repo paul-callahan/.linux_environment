@@ -61,6 +61,12 @@ export PATH=${PATH}:${JAVA_HOME}/bin
 
 export TCELL_SRC_ROOT=~/dev/tcell
 
+if [[ -f $HOME/.cargo/env ]]; then
+   source $HOME/.cargo/env
+else
+    echo "rustup not found/installed"
+fi
+
 setpowerline
 
 # Eternal bash history.
