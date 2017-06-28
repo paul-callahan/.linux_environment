@@ -1,5 +1,15 @@
+unamestr=`uname`
 setpowerline() {
-    . /Users/paul/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
+    if [[ "$unamestr" == 'Linux' ]]; then
+	if [[ -f /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh ]]; then
+	    . /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
+	else
+	    echo "powerline not installed"
+	fi
+	
+    else
+	. /Users/paul/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
+    fi
     PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 }
 
@@ -9,7 +19,15 @@ cpath() {
 }
 
 nukenoneimages() {
-    docker rmi -f $(docker images | grep -v codekitchen/dinghy-http-proxy | grep '<none>' | awk '{print $3}' | grep -v CONTAINER)
+    docker rmi -f $(docker images | grep '<none>' | awk '{print $3}' | grep -v CONTAINER)
+}
+
+nukematchingimages() {
+    docker rmi -f $(docker images | grep "$1" | awk '{print $3}' | grep -v CONTAINER)
+}
+
+nukematchingcontainers() {
+    docker rm -f $(docker ps -a | grep "$1" | awk '{print $1}' | grep -v CONTAINER)
 }
 
 nukevolumes() {
@@ -33,7 +51,11 @@ setdinghy() {
 
 export CLICOLOR=1
 
-export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+if [[ "$unamestr" == 'Linux' ]]; then
+    export JAVA_HOME=`java -XshowSettings:properties -version 2>&1    | sed '/^[[:space:]]*java\.home/!d;s/^[[:space:]]*java\.home[[:space:]]*=[[:space:]]*//'`
+else
+    export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+fi
 
 export PATH=${PATH}:${JAVA_HOME}/bin
 
