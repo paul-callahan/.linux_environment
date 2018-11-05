@@ -1,5 +1,6 @@
 setpowerline() {
-    . /Users/paul/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
+    local pl_base=$(pip3 show powerline-status | grep Location | awk '{print $2}')
+    . ${pl_base}/powerline/bindings/bash/powerline.sh
     PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 }
 
@@ -34,12 +35,19 @@ setdinghy() {
 export CLICOLOR=1
 
 export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+if [ -f $HOME/.cargo/env ]; then
+    . $HOME/.cargo/env
+fi
+
 
 export PATH=${PATH}:${JAVA_HOME}/bin
 
 export TCELL_SRC_ROOT=~/dev/tcell
+export TCELL_DEV_SERVER=minty.local
 
 setpowerline
+
+. /usr/local/etc/bash_completion.d/git-completion.bash
 
 # Eternal bash history.
 # ---------------------
@@ -66,3 +74,8 @@ alias startportainer="docker run --name portainer --privileged -d -p 9000:9000 -
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+if [ -d "$HOME/.rvm/bin" ]; then
+    export PATH="$PATH:$HOME/.rvm/bin"
+fi
