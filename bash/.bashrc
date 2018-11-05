@@ -98,17 +98,20 @@ else
     export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
 fi
 
+export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
+if [ -f $HOME/.cargo/env ]; then
+    . $HOME/.cargo/env
+fi
+
+
 export PATH=${PATH}:${JAVA_HOME}/bin
 
 export TCELL_SRC_ROOT=~/dev/tcell
-
-if [[ -f $HOME/.cargo/env ]]; then
-   source $HOME/.cargo/env
-else
-    echo "rustup not found/installed"
-fi
+export TCELL_DEV_SERVER=minty.local
 
 setpowerline
+
+. /usr/local/etc/bash_completion.d/git-completion.bash
 
 # Eternal bash history.
 # ---------------------
@@ -135,3 +138,8 @@ alias startportainer="docker run --name portainer --privileged -d -p 9000:9000 -
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+if [ -d "$HOME/.rvm/bin" ]; then
+    export PATH="$PATH:$HOME/.rvm/bin"
+fi

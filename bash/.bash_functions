@@ -8,7 +8,10 @@ setpowerline() {
 	fi
 	
     else
-	. /Users/paul/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
+        local pl_base=$(pip3 show powerline-status | grep Location | awk '{print $2}')
+        . ${pl_base}/powerline/bindings/bash/powerline.sh
+        PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+	    . ${pl_base}/powerline/bindings/bash/powerline.sh
     fi
     PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 }
