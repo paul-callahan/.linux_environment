@@ -1,5 +1,9 @@
 unamestr=`uname`
-
+if [[ "$unamestr" == 'Linux' ]]; then
+    source ~/.linux_environment/bash/linux/.bashrc
+else
+    source ~/.linux_environment/bash/osx/.bashrc
+fi
 
 # If not running interactively, don't do anything
 case $- in
@@ -53,31 +57,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+[[ -f ~//.bash_aliases ]] && source ~//.bash_aliases
+[[ -f ~/.linux_environment/bash/.bash_aliases ]] && source ~/.linux_environment/bash/.bash_aliases
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 
 if [ -f ~/.linux_environment/bash/.bash_functions ]; then
@@ -86,32 +68,13 @@ else
     echo "~/.linux_environment/bash/.bash_functions not found."
 fi
 
+########################################################################################################################
+########                                         Env vars                                                       ########
+########################################################################################################################
 
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export CLICOLOR=1
-
-if [[ "$unamestr" == 'Linux' ]]; then
-    export JAVA_HOME=`java -XshowSettings:properties -version 2>&1    | sed '/^[[:space:]]*java\.home/!d;s/^[[:space:]]*java\.home[[:space:]]*=[[:space:]]*//'`
-    export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
-    export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-
-else
-    export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
-fi
-
-export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
-if [ -f $HOME/.cargo/env ]; then
-    . $HOME/.cargo/env
-fi
-
-
-export PATH=${PATH}:${JAVA_HOME}/bin
-
-export TCELL_SRC_ROOT=~/dev/tcell
-export TCELL_DEV_SERVER=minty.local
-
-setpowerline
-
-. /usr/local/etc/bash_completion.d/git-completion.bash
 
 # Eternal bash history.
 # ---------------------
@@ -122,24 +85,29 @@ export HISTSIZE=
 #export HISTTIMEFORMAT="[%F %T] "
 # Change the file location because certain bash sessions truncate .bash_history file upon close.
 # http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
-export HISTFILE=~/.bash_eternal_history
+# moved to linux because mac as its own weird thing.  see /private/etc/bashrc_Apple_Terminal
+#export HISTFILE=~/.bash_eternal_history
 # Force prompt to write history after every command.
 # http://superuser.com/questions/20900/bash-history-loss
-export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 export HISTCONTROL=erasedups
 
-alias tailtopic="docker exec  tcell_kafka_1 /opt/kafka_2.11-0.10.1.0/bin/kafka-console-consumer.sh --zookeeper zookeeper --from-beginning --topic"
-alias lstopics="docker exec  tcell_kafka_1 /opt/kafka_2.11-0.10.1.0/bin/kafka-topics.sh --zookeeper zookeeper --list"
-alias dc="docker-compose"
-alias ssh-xhyve="docker run --rm -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh"
-alias cdja="cd ${TCELL_SRC_ROOT}//agents/jvm/"
-alias startportainer="docker run --name portainer --privileged -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer"
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if [[ -f $HOME/.cargo/env ]]; then
+    . $HOME/.cargo/env
+fi
 
 
+[[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
+
+export NVM_DIR="$HOME/.nvm"
+[[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+PATH=${JAVA_HOME}/bin:${PATH}
+export XTCELL_SRC_ROOT=~/dev/tcell
+export XTCELL_DEV_SERVER=minty.local
+
+setpowerline
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-if [ -d "$HOME/.rvm/bin" ]; then
+if [[ -d "$HOME/.rvm/bin" ]]; then
     export PATH="$PATH:$HOME/.rvm/bin"
 fi

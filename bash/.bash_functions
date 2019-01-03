@@ -8,12 +8,12 @@ setpowerline() {
 	fi
 	
     else
+        export PATH=~/Library/Python/3.7/bin:$PATH
         local pl_base=$(pip3 show powerline-status | grep Location | awk '{print $2}')
         . ${pl_base}/powerline/bindings/bash/powerline.sh
-        PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-	    . ${pl_base}/powerline/bindings/bash/powerline.sh
     fi
-    PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+    #PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }
+    #PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 }
 
 cpath() {
