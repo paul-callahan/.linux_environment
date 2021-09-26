@@ -21,6 +21,10 @@ cpath() {
     echo
 }
 
+findx() {
+    find "$1" -name "$2" 2>&1 >files_and_folders | grep -v 'Permission denied' >&2
+}
+
 nukenoneimages() {
     docker rmi -f $(docker images | grep '<none>' | awk '{print $3}' | grep -v CONTAINER)
 }
@@ -46,53 +50,24 @@ nukeallcontainers() {
 }
 
 
-gitup(){	
-	RED='\033[33;31m'
-	YELLO='\033[33;33m'
-	GREEN='\033[33;32m'
-	NC='\033[0m' # No Color
+bump_version() { local lib_path=$1;
+   local curr=$(head -n 1 $lib_path/project.clj | sed 's/.*"\(.*\)"/\1/')
+   printf "The current version number is '$curr'. What do you want to change it to? "
+   read next
+   echo "Bumping '$lib_path' version from '$curr' to '$next'..."
+   sed -i '' "s/\(io.tcell\/$(basename $lib_path).*\)${curr}/\1${next}/" */project.clj */*/project.clj */*/*/project.clj
+}
 
-	if ! [ -d .git ]; then
-		echo "${RED}This is not a git repo"
-		return 1
-	fi
-	
-	HEAD=$(git rev-parse HEAD)
-	CHANGED=$(git status --porcelain | wc -l)
-	CUR_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+getpod() {
+    local pattern=$1
+    kubectl get pods | grep "$1" | head -1 | awk '{print $1}'
+}
 
-	echo "Fetching..."
-	git fetch --all --prune &>/dev/null
-	if [ $? -ne 0 ]; then
-		echo "Fetch Failed!"
-		return 1
-	fi
-
-	for branch in `git for-each-ref --format='%(refname:short)' refs/heads`; do
-
-		LOCAL=$(git rev-parse --quiet --verify $branch)
-		if [ "$branch" = "$CUR_BRANCH" ] && [ $CHANGED -gt 0 ]; then
-			echo -e "${YELLO}WORKING${NC}\t\t$branch"
-		elif git rev-parse --verify --quiet $branch@{u}&>/dev/null; then
-			REMOTE=$(git rev-parse --quiet --verify $branch@{u})
-			BASE=$(git merge-base $branch $branch@{u})
-			
-			if [ "$LOCAL" = "$REMOTE" ]; then
-			   echo -e "${GREEN}OK${NC}\t\t$branch" 
-			elif [ "$LOCAL" = "$BASE" ]; then
-				if [ "$branch" = "$CUR_BRANCH" ]; then
-					git merge $REMOTE&>/dev/null
-				else
-					git branch -f $branch $REMOTE
-				fi
-				echo -e "${GREEN}UPDATED${NC}\t\t$branch"
-			elif [ "$REMOTE" = "$BASE" ]; then
-				echo -e "${RED}AHEAD${NC}\t\t$branch"
-			else
-				echo -e "${RED}DIVERGED${NC}\t\t$branch"
-			fi
-		else
-			echo -e "${RED}NO REMOTE${NC}\t$branch"
-		fi
-	done
+podforward() {
+    local pattern=$1
+    local localport=${2:-8080}
+    local remoteport=${3:-8080}
+    local pod=$(getpod $pattern)
+    echo "forwarding localhost:${localport} to ${pod}:${remoteport}"
+    nohup kubectl --namespace default port-forward $pod ${localport}:${remoteport} &
 }
