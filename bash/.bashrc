@@ -98,16 +98,19 @@ fi
 
 [[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
 
-export NVM_DIR="$HOME/.nvm"
-[[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# export NVM_DIR="$HOME/.nvm"
+# [[ -s "$NVM_DIR/nvm.sh" ]] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 
 PATH=${JAVA_HOME}/bin:${PATH}
+export PATH="$HOME/.cargo/bin:$PATH"
+
 export XTCELL_SRC_ROOT=~/dev/tcell
 export XTCELL_DEV_SERVER=minty.local
 
 setpowerline
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-if [[ -d "$HOME/.rvm/bin" ]]; then
-    export PATH="$PATH:$HOME/.rvm/bin"
-fi
+
+export AWS_PROFILE=awsaml-606696011804
+export AWS_DEFAULT_PROFILE=awsaml-606696011804
