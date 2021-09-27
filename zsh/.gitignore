@@ -1,0 +1,4 @@
+.zcompdump
+completion/
+.zsh_history
+zsh-autosuggestions/

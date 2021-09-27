@@ -32,7 +32,10 @@ source $HOME/.linux_environment/bash/.bash_functions
 # rust
 [[ ! -f $HOME/.cargo/env ]] || source $HOME/.cargo/env
 
-# nvm
+# zsh autosuggestion
+source ${HOME}/.linux_environment/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# nvm - very slow
 export NVM_DIR="$HOME/.nvm"
 # zsh -x $NVM_DIR/nvm.sh
 # [[ ! -f "$NVM_DIR/nvm.sh" ]] || time source "$NVM_DIR/nvm.sh"
