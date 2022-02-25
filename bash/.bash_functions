@@ -1,12 +1,13 @@
+#!/bin/bash
+
 setpowerline() {
     unamestr=`uname`
     if [[ "$unamestr" == 'Linux' ]]; then
-	if [[ -f /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh ]]; then
-	    . /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
-	else
-	    echo "powerline not installed"
-	fi
-	
+      if [[ -f /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh ]]; then
+          . /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
+      else
+          echo "powerline not installed"
+      fi
     else
         export PATH=~/Library/Python/3.7/bin:$PATH
         local pl_base=$(pip3 show powerline-status | grep Location | awk '{print $2}')
@@ -70,4 +71,11 @@ podforward() {
     local pod=$(getpod $pattern)
     echo "forwarding localhost:${localport} to ${pod}:${remoteport}"
     nohup kubectl --namespace default port-forward $pod ${localport}:${remoteport} &
+}
+
+rebuild-service() {
+  local service=$1
+  docker-compose stop $service
+  docker-compose rm -f $service
+  make up-${service} DETACH=true
 }

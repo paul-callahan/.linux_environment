@@ -35,6 +35,8 @@ source "${ZDOTDIR}"/"${OS_ENV}"/"zshenv-${OS_ENV}.sh"
 
 
 export HOMEBREW_NO_AUTO_UPDATE=1
+export NVM_DIR="$HOME/.nvm"
+
 
 # The lower-case version of PATH is an array parameter
 # bound to the scalar upper-case parameter.
