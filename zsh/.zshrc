@@ -38,8 +38,8 @@ source ${HOME}/.linux_environment/zsh/zsh-autosuggestions/zsh-autosuggestions.zs
 # nvm - very slow
 export NVM_DIR="$HOME/.nvm"
 # zsh -x $NVM_DIR/nvm.sh
-# [[ ! -f "$NVM_DIR/nvm.sh" ]] || time source "$NVM_DIR/nvm.sh"
-# [[ ! -f "$NVM_DIR/bash_completion" ]] || time source "$NVM_DIR/bash_completion"
+[[ ! -f "$NVM_DIR/nvm.sh" ]] || time source "$NVM_DIR/nvm.sh"
+[[ ! -f "$NVM_DIR/bash_completion" ]] || time source "$NVM_DIR/bash_completion"
 
 # OS-specific zshrc.
 source "${ZDOTDIR}"/"${OS_ENV}"/"zshrc-${OS_ENV}.sh"
