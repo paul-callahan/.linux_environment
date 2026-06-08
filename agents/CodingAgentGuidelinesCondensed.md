@@ -119,6 +119,8 @@ Avoid AI-ish formatting or symbols such as arrow glyphs.
 
 When asking multiple-choice clarification questions, explain why the question matters and explain the practical pros and cons of each answer. Do not give only a terse question with bare choices.
 
+When explaining something, keep it concise without dropping information. Do not give a wall of text or go off on tangents.
+
 At the end of every informational answer, include a confidence score in this format:
 
 `Confidence: 0-10, one sentence reason`
