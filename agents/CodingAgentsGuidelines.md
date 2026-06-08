@@ -175,6 +175,19 @@ At the end of every informational answer, include a confidence score in this for
 
 `Confidence: 0-10, one sentence reason`
 
+## Clarifying Questions
+
+When asking multiple-choice questions to gather more information, do not give only a single terse question with bare answer choices.
+
+Explain why the question matters.
+
+For each answer choice, explain the practical consequence, including the main pros and cons.
+
+If one option is usually best, say so and explain why. If the right answer depends on context, say what context changes the choice.
+
+Avoid excessive detail for trivial choices, but do not make the user guess what each option means.
+
+
 ## Completion Review
 
 After writing or changing code, review the work and ask:
