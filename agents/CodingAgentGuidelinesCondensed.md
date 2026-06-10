@@ -137,3 +137,16 @@ After writing or changing code, review:
 * For Java tests, are they BDD style?
 * Did I push back on questionable assumptions instead of blindly following them?
 * Did I clearly identify any extra work beyond the prompt?
+
+## Important
+
+WHEN USER ASKS A QUESTION, THIS IS NOT A PROMPT TO MAKE CHANGES. ANSWER THE QUESTION, DO NOT EDIT OR CHANGE ANYTHING WHEN THE USER ASKS A QUESTION.
+
+UNDER NO CIRCUMSTANCES ARE YOU TO RUN ANY TERRAFORM COMMAND, except these read-only commands when explicitly relevant:
+- terraform fmt -check
+- terraform fmt -check -recursive
+- terraform version
+
+Do not run terraform init, validate, plan, apply, destroy, import, refresh, output, show, state, or providers unless explicitly requested by the user.
+
+WHEN A PLAN OR A DESIGN OR A REQUEST DOES NOT FOLLOW BEST PRACTICES, ALERT THE USER
