@@ -1,7 +1,7 @@
 # brew --prefix = /usr/local
 #FPATH=/usr/local/share/zsh-completions:$FPATH
 
-fpath=(${HOME}/.linux_environment/zsh/completion $fpath)
+[[ -d /opt/homebrew/share/zsh-completions ]] && fpath=(/opt/homebrew/share/zsh-completions "$fpath")
 
 #fpath=(/usr/local/share/zsh-completions $path)
 

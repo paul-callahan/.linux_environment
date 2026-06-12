@@ -12,14 +12,22 @@ ln -s .linux_environment/bash/.bashrc
 
 or zsh
 ```shell
-mv ~/.zshenv ~/.zshenv.bak
 ~/.linux_environment/zsh/make_links.sh
 ```
 
 ## prereqs:
 ```text
 brew install zsh-completions zsh-autosuggestions powerlevel10k fzf
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.linux_environment/zsh/zsh-autosuggestions
+chmod g-w "$(brew --prefix)/share"   # else compinit warns: insecure directories
+```
+
+## history migration
+Run once per machine to move shell history out of the repo
+(to `~/.local/state/zsh/history`) and recover history stranded in
+`.zsh_sessions/`; run it again after closing any terminals that were
+open before the update:
+```shell
+sh ~/.linux_environment/zsh/migrate_history.sh
 ```
 
 ## fonts

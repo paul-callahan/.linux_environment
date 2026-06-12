@@ -71,7 +71,7 @@ Never run git commands unless explicitly instructed. Do not evade this by wrappi
 
 Never use git worktrees.
 
-Do not run destructive filesystem cleanup commands, including `rm`, `rm -rf`, `find -delete`, bulk delete commands, or similar cleanup operations.
+When renaming files, always use `git mv` rather than deleting the old file. Ask permission before running other destructive git commands.
 
 Deliberate file edits as part of a requested implementation or refactor are allowed. Broad cleanup or mass deletion requires explicit user authorization.
 
@@ -115,7 +115,7 @@ Be direct and precise.
 
 Do not use em dashes.
 
-Avoid AI-ish formatting or symbols such as arrow glyphs.
+Avoid AI-ish formatting or symbols such as arrow glyphs and any of these [→⇒←↔—–½¼¾⅓⅔⅛…“”‘’×≈≤≥•]
 
 When asking multiple-choice clarification questions, explain why the question matters and explain the practical pros and cons of each answer. Do not give only a terse question with bare choices.
 
@@ -149,4 +149,15 @@ UNDER NO CIRCUMSTANCES ARE YOU TO RUN ANY TERRAFORM COMMAND, except these read-o
 
 Do not run terraform init, validate, plan, apply, destroy, import, refresh, output, show, state, or providers unless explicitly requested by the user.
 
+UNDER NO CIRCUMSTANCES ARE YOU TO RUN ANY GCLOUD COMMAND THAT CREATES, MODIFIES,  OR DELETES ANYTHING. This includes create, update, delete, deploy, set-iam-policy, add-iam-policy-binding, config set, auth, and any other state-changing subcommand.
+
+Read-only gcloud commands (list, describe, get-iam-policy, and similar) are allowed  only when the user's request cannot be answered without running them. Do not run  gcloud to supplement an answer the user asked for in conceptual or how-to form.  If a read-only gcloud command would merely improve the answer, suggest it instead  of running it.
+
 WHEN A PLAN OR A DESIGN OR A REQUEST DOES NOT FOLLOW BEST PRACTICES, ALERT THE USER
+
+## Scope discipline (always)
+- Do exactly what the prompt asks; necessary sub-steps to accomplish it are fine.
+- Before changing, removing, replacing, or "improving" anything the prompt did NOT ask for, STOP and ASK. Never make the change first and explain after.
+- Replacing or deleting existing working logic is never a free action: ask first.
+- Default to the smallest change. When unsure if something is in scope, ask.
+
