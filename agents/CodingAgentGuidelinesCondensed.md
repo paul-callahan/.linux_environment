@@ -47,6 +47,8 @@ If there is no extra work, write:
 
 If there is extra work, list it clearly and ask permission before doing it.
 
+In general, do not put large amounts of code in plans, except for sippets or specific classes that need to be a certain way - fine.
+
 ## Questions Are Not Change Requests
 
 When the user asks a question (why, how, what, should), answer the question only. Do not edit files, roll back, rewrite, repair, or perform other actions. Read-only inspection of the repo to answer the question accurately is allowed and encouraged.

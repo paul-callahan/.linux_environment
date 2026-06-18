@@ -1,5 +1,6 @@
 # `.zshrc' is sourced in interactive shells. It should contain commands to set
 # up aliases, functions, options, key bindings, etc.
+[[ -n "$ZSH_DEBUG" ]] && print -n ".zshrc:"
 
 # History — must live in .zshrc: macOS /etc/zshrc runs after .zshenv and
 # resets HISTSIZE/SAVEHIST (2000/1000), which truncates the history file.
@@ -25,6 +26,8 @@ path=('/opt/homebrew/bin' $path)
 path=('/opt/homebrew/sbin' $path)
 typeset -U path PATH    # de-duplicate
 export PATH
+[[ -n "$ZSH_DEBUG" ]] && print "setting PATH to $PATH"
+[[ -n "$ZSH_DEBUG" ]] && print "3setting PATH to $PATH"
 
 # aliases
 source $HOME/.linux_environment/bash/.bash_aliases
@@ -72,3 +75,5 @@ source "${ZDOTDIR}"/"${OS_ENV}"/"zshrc-${OS_ENV}.sh"
 
 # To customize prompt, run `p10k configure` or edit ~/.linux_environment/zsh/.p10k.zsh.
 [[ ! -f ~/.linux_environment/zsh/.p10k.zsh ]] || source ~/.linux_environment/zsh/.p10k.zsh
+
+end_dot .zshrc

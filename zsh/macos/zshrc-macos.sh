@@ -1,7 +1,8 @@
 # brew --prefix = /usr/local
 #FPATH=/usr/local/share/zsh-completions:$FPATH
 
-[[ -d /opt/homebrew/share/zsh-completions ]] && fpath=(/opt/homebrew/share/zsh-completions "$fpath")
+# shellcheck disable=SC2086  # fpath is a zsh array; quoting "$fpath" collapses it to one bad path
+[[ -d /opt/homebrew/share/zsh-completions ]] && fpath=(/opt/homebrew/share/zsh-completions $fpath)
 
 #fpath=(/usr/local/share/zsh-completions $path)
 
