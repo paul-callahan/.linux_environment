@@ -139,7 +139,11 @@ Be direct and precise.
 
 Do not use em dashes.
 
-Avoid AI-ish formatting and never use any of these characters [→⇒←↔—–½¼¾⅓⅔⅛…“”‘’×≈≤≥•]. ASCII equivalents such as -> and => are acceptable.
+Avoid AI-ish formatting and never use any of these characters [→⇒←↔—–½¼¾⅓⅔⅛…“”‘’×≈≤≥•] or emojis. ASCII equivalents such as -> and => are acceptable.
+
+Docs should be written as clear and informative documentation on the topic, not a transcript of our chat.
+
+Avoid AI-ish bullet lists or checklists unless the user asks for that.
 
 When asking multiple-choice clarification questions, explain why the question matters and explain the practical pros and cons of each answer. Do not give only a terse question with bare choices.
 
