@@ -4,12 +4,14 @@ alias startportainer="docker run --name portainer --privileged -d -p 9000:9000 -
 alias chrome-insecure="'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --disable-web-security --user-data-dir=${HOME}/dev/chrome_data_dir --no-default-browser-check"
 alias k="kubectl"
 alias kpods="kubectl get pods"
-alias kprod0=". ~/.kube/setprod0.sh"
-alias kprod1=". ~/.kube/setprod1.sh"
-alias kprod4=". ~/.kube/setprod4.sh"
-alias kprod5=". ~/.kube/setprod5.sh"
-alias kprod6=". ~/.kube/setprod6.sh"
-alias kstage=". ~/.kube/setstage.sh"
+
+# gcloud GKE get-credentials: ALIAS  CLUSTER / REGION
+alias kube-eu-prod='gcloud container clusters get-credentials "eu-prod-gke-cluster" --location "europe-west1" --project gstore-production'
+alias kube-us-prod='gcloud container clusters get-credentials "kalama-gke-cluster" --location "us-central1" --project gstore-production'
+alias kube-eu-dev='gcloud container clusters get-credentials "kalama-dev-gke-eu-cluster" --location "europe-west1" --project gstore-development'
+alias kube-us-dev='gcloud container clusters get-credentials "kalama-dev-gke-cluster" --location "us-central1" --project gstore-development'
+alias kube-eu-nonprod='gcloud container clusters get-credentials "eu-west1-non-prod" --location "europe-west1" --project gstore-development'
+alias kube-us-nonprod='gcloud container clusters get-credentials "us-central1-non-prod" --location "us-central1" --project gstore-development'
 alias casstunnelstage="ssh -A -L 9042:10.0.11.98:9042 -L 9160:10.0.11.98:9160 -L 9142:10.0.11.98:9142 ec2-3-223-136-203.compute-1.amazonaws.com"
 # homebrew vim on macOS only; this file is shared with linux
 [[ -x /opt/homebrew/bin/vim ]] && alias vi="/opt/homebrew/bin/vim"
